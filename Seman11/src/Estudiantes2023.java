@@ -9,9 +9,44 @@ public class Estudiantes2023 {
         estudiantes = new ArrayList<>();
         cargarArchivo();
     }
-
+    
+    public double obtenerSumaPensiones(){
+        double sumaPensiones = 0;
+        for (Estudiante estudiante : estudiantes){
+            sumaPensiones += estudiante.getPension();
+        }
+        return sumaPensiones;
+    }
+    
+    public boolean existeEstudiante (int codigo){
+        for (Estudiante estudiante : estudiantes){      
+            if (estudiante.getCodigo() == codigo){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    
+    
+    public void modificar (int codigo, Estudiante nuevoEstudiante){
+        for (int i = 0; i < estudiantes.size(); i++){
+            if (estudiantes.get(i).getCodigo() == codigo){
+                estudiantes.set(i, nuevoEstudiante);
+                break;
+            }
+        }
+    }
     public void adicionar(Estudiante estudiante) {
         //Introduce c?digo
+        estudiantes.add(estudiante);
+    }
+    
+    public void registrar(Estudiante estudiante){
+        Estudiante estudiante1 = estudiantes.get(tamano()-1);
+        int codigoUltimoEst = estudiante1.getCodigo();
+        estudiante.setCodigo(codigoUltimoEst+1);
         estudiantes.add(estudiante);
     }
 
@@ -27,22 +62,37 @@ public class Estudiantes2023 {
     }
 
     public Estudiante buscar(int codigo) {
-	//Introduce c?digo      
-        
+        for (int i = 0; i < estudiantes.size(); i++)
+            if (codigo == estudiantes.get(i).getCodigo())
+                return estudiantes.get(i);
 	  return null;
     }
 
     public int tamano() {
-        //Introduce c?digo     
-        
-        
-	  return 0;
+        //Introduce c?digo 
+        return estudiantes.size();
     }
 
     public void listarEstudiantes(){
         //Introduce c?digo  
         for(Estudiante estudiante:estudiantes){
             System.out.println(estudiante.toString());
+        }
+    }
+    
+    public void listarEstudiantesPorApellidos(){
+        List<Estudiante> estudiantesOrdenadosPorPension = new ArrayList<>(estudiantes);
+        Collections.sort(estudiantesOrdenadosPorPension, (e1, e2) -> Double.compare(e1.getPension(), e2.getPension()));
+        for (Estudiante estudiante : estudiantesOrdenadosPorPension){
+            System.out.println(estudiante);
+        }
+    }
+    
+    public void listarEstudiantePorPensionAscendente(){
+        List<Estudiante> estudiantesOrdenadosPorPension = new ArrayList<>(estudiantes);
+        Collections.sort(estudiantesOrdenadosPorPension, (e1, e2) -> Double.compare(e1.getPension(), e2.getPension()));
+        for (Estudiante estudiante : estudiantesOrdenadosPorPension){
+            System.err.println(estudiante);
         }
     }
 
